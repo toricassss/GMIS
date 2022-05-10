@@ -33,6 +33,9 @@ namespace GMIS
             students = (Students)Application.Current.FindResource("student_controller");
             meetings = (Meetings)Application.Current.FindResource("meeting_controller");
             ShowAllClass.Visibility = Visibility.Collapsed;
+            ShowAllGroup.Visibility = Visibility.Collapsed;
+            ShowAllStudent.Visibility = Visibility.Collapsed;
+            ShowAllMeeting.Visibility = Visibility.Collapsed;
             ClassButton.Visibility = Visibility.Collapsed;
             GroupButton.Visibility = Visibility.Collapsed;
             StudentButton.Visibility = Visibility.Collapsed;
@@ -46,11 +49,11 @@ namespace GMIS
             {
                 ListBox.Items.Add(classes.GetViewableList()[i]);
             }
-            ClassButton.Visibility = Visibility.Collapsed;
-            GroupButton.Visibility = Visibility.Collapsed;
-            StudentButton.Visibility = Visibility.Collapsed;
-            MeetingButton.Visibility = Visibility.Collapsed;
             ShowAllClass.Visibility = Visibility.Visible;
+            ShowAllGroup.Visibility = Visibility.Collapsed;
+            ShowAllMeeting.Visibility = Visibility.Collapsed;
+            ShowAllStudent.Visibility = Visibility.Collapsed;
+            MainAttributeBox.Text = "Class ID";
         }
 
         private void LogButton_Click(object sender, RoutedEventArgs e)
@@ -89,11 +92,12 @@ namespace GMIS
             for (int i = 0; i < students.GetViewableList().Count; i++)
             {
                 ListBox.Items.Add(students.GetViewableList()[i]);
+                ShowAllStudent.Visibility = Visibility.Visible;
+                ShowAllClass.Visibility = Visibility.Collapsed;
+                ShowAllGroup.Visibility = Visibility.Collapsed;
+                ShowAllMeeting.Visibility = Visibility.Collapsed;
+                MainAttributeBox.Text = "Student ID";
             }
-            ClassButton.Visibility = Visibility.Collapsed;
-            GroupButton.Visibility = Visibility.Collapsed;
-            StudentButton.Visibility = Visibility.Collapsed;
-            MeetingButton.Visibility = Visibility.Collapsed;
         }
 
         private void GroupButton_Click(object sender, RoutedEventArgs e)
@@ -103,10 +107,11 @@ namespace GMIS
             {
                 ListBox.Items.Add(groups.GetViewableList()[i]);
             }
-            ClassButton.Visibility = Visibility.Collapsed;
-            GroupButton.Visibility = Visibility.Collapsed;
-            StudentButton.Visibility = Visibility.Collapsed;
-            MeetingButton.Visibility = Visibility.Collapsed;
+            ShowAllGroup.Visibility = Visibility.Visible;
+            ShowAllClass.Visibility = Visibility.Collapsed;
+            ShowAllStudent.Visibility = Visibility.Collapsed;
+            ShowAllMeeting.Visibility = Visibility.Collapsed;
+            MainAttributeBox.Text = "Group ID";
         }
 
         private void MeetingButton_Click(object sender, RoutedEventArgs e)
@@ -116,10 +121,11 @@ namespace GMIS
             {
                 ListBox.Items.Add(meetings.GetViewableList()[i]);
             }
-            ClassButton.Visibility = Visibility.Collapsed;
-            GroupButton.Visibility = Visibility.Collapsed;
-            StudentButton.Visibility = Visibility.Collapsed;
-            MeetingButton.Visibility = Visibility.Collapsed;
+            ShowAllMeeting.Visibility = Visibility.Visible;
+            ShowAllClass.Visibility = Visibility.Collapsed;
+            ShowAllStudent.Visibility = Visibility.Collapsed;
+            ShowAllGroup.Visibility = Visibility.Collapsed;
+            MainAttributeBox.Text = "Meeting ID";
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -139,6 +145,10 @@ namespace GMIS
                         if (class_list[i].class_id == Convert.ToInt64(class_id))
                         {
                             ListBox.Items.Add(class_list[i]);
+                            ShowAllClass.Visibility = Visibility.Visible;
+                            ShowAllGroup.Visibility = Visibility.Collapsed;
+                            ShowAllStudent.Visibility = Visibility.Collapsed;
+                            ShowAllMeeting.Visibility = Visibility.Collapsed;
                         }
                     }
                 }
@@ -157,6 +167,10 @@ namespace GMIS
                         if (group_list[i].group_id == group_id)
                         {
                             ListBox.Items.Add(group_list[i]);
+                            ShowAllGroup.Visibility = Visibility.Visible;
+                            ShowAllClass.Visibility = Visibility.Collapsed;
+                            ShowAllStudent.Visibility = Visibility.Collapsed;
+                            ShowAllMeeting.Visibility = Visibility.Collapsed;
                         }
                     }
                 }
@@ -175,6 +189,10 @@ namespace GMIS
                         if (student_list[i].student_id == Convert.ToInt32(student_id))
                         {
                             ListBox.Items.Add(student_list[i]);
+                            ShowAllStudent.Visibility = Visibility.Visible;
+                            ShowAllClass.Visibility = Visibility.Collapsed;
+                            ShowAllGroup.Visibility = Visibility.Collapsed;
+                            ShowAllMeeting.Visibility = Visibility.Collapsed;
                         }
                     }
                 }
@@ -193,6 +211,10 @@ namespace GMIS
                         if (meeting_list[i].meeting_id == Convert.ToInt32(meeting_id))
                         {
                             ListBox.Items.Add(meeting_list[i]);
+                            ShowAllMeeting.Visibility = Visibility.Visible;
+                            ShowAllClass.Visibility = Visibility.Collapsed;
+                            ShowAllGroup.Visibility = Visibility.Collapsed;
+                            ShowAllStudent.Visibility = Visibility.Collapsed;
                         }
                     }
                 }
@@ -209,7 +231,130 @@ namespace GMIS
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ClassDetailsPanel.DataContext = ListBox.SelectedItem;
+            if (MainAttributeBox.Text == "Class ID")
+            {
+                ClassDetailsPanel.DataContext = ListBox.SelectedItem;
+            }
+            else if (MainAttributeBox.Text == "Group ID")
+            {
+                GroupDetailsPanel.DataContext = ListBox.SelectedItem;
+            }
+            else if (MainAttributeBox.Text == "Student ID")
+            {
+                StudentDetailsPanel.DataContext = ListBox.SelectedItem;
+            }
+            else if (MainAttributeBox.Text == "Meeting ID")
+            {
+                MeetingDetailsPanel.DataContext = ListBox.SelectedItem;
+            }
+        }
+
+        private void RelatedGroupButton_Click(object sender, RoutedEventArgs e)
+        {
+            Class List_selected_class = new Class();
+            List_selected_class = (ListBox.SelectedItem) as Class;
+            ListBox.Items.Clear();
+            if (List_selected_class != null)
+            {
+                string required_group_id = List_selected_class.group_id;
+                for (int i = 0; i < groups.GetViewableList().Count; i++)
+                {
+                    if (required_group_id == groups.GetViewableList()[i].group_id)
+                    {
+                        ListBox.Items.Add(groups.GetViewableList()[i]);
+                    }
+                }
+                ShowAllGroup.Visibility = Visibility.Visible;
+                ShowAllClass.Visibility = Visibility.Collapsed;
+                ShowAllStudent.Visibility = Visibility.Collapsed;
+                ShowAllMeeting.Visibility = Visibility.Collapsed;
+                MainAttributeBox.Text = "Group ID";
+            }
+            else
+            {
+                MessageBox.Show("There is no class selected!");
+            }
+        }
+
+        private void RelatedStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            Group List_selected_class = new Group();
+            List_selected_class = (ListBox.SelectedItem) as Group;
+            ListBox.Items.Clear();
+            if (List_selected_class != null)
+            {
+                string required_group_id = List_selected_class.group_id;
+                for (int i = 0; i < students.GetViewableList().Count; i++)
+                {
+                    if (required_group_id == students.GetViewableList()[i].group_id)
+                    {
+                        ListBox.Items.Add(students.GetViewableList()[i]);
+                    }
+                }
+                ShowAllStudent.Visibility = Visibility.Visible;
+                ShowAllClass.Visibility = Visibility.Collapsed;
+                ShowAllGroup.Visibility = Visibility.Collapsed;
+                ShowAllMeeting.Visibility = Visibility.Collapsed;
+                MainAttributeBox.Text = "Student ID";
+            }
+            else
+            {
+                MessageBox.Show("There is no class selected!");
+            }
+        }
+
+        private void RelatedClassButton_Click(object sender, RoutedEventArgs e)
+        {
+            Student List_selected_class = new Student();
+            List_selected_class = (ListBox.SelectedItem) as Student;
+            ListBox.Items.Clear();
+            if (List_selected_class != null)
+            {
+                string required_group_id = List_selected_class.group_id;
+                for (int i = 0; i < classes.GetViewableList().Count; i++)
+                {
+                    if (required_group_id == classes.GetViewableList()[i].group_id)
+                    {
+                        ListBox.Items.Add(classes.GetViewableList()[i]);
+                    }
+                }
+                ShowAllClass.Visibility = Visibility.Visible;
+                ShowAllStudent.Visibility = Visibility.Collapsed;
+                ShowAllGroup.Visibility = Visibility.Collapsed;
+                ShowAllMeeting.Visibility = Visibility.Collapsed;
+                MainAttributeBox.Text = "Class ID";
+            }
+            else
+            {
+                MessageBox.Show("There is no class selected!");
+            }
+        }
+
+        private void RelatedMeetingButton_Click(object sender, RoutedEventArgs e)
+        {
+            Student List_selected_class = new Student();
+            List_selected_class = (ListBox.SelectedItem) as Student;
+            ListBox.Items.Clear();
+            if (List_selected_class != null)
+            {
+                string required_group_id = List_selected_class.group_id;
+                for (int i = 0; i < meetings.GetViewableList().Count; i++)
+                {
+                    if (required_group_id == meetings.GetViewableList()[i].group_id)
+                    {
+                        ListBox.Items.Add(meetings.GetViewableList()[i]);
+                    }
+                }
+                ShowAllMeeting.Visibility = Visibility.Visible;
+                ShowAllStudent.Visibility = Visibility.Collapsed;
+                ShowAllGroup.Visibility = Visibility.Collapsed;
+                ShowAllClass.Visibility = Visibility.Collapsed;
+                MainAttributeBox.Text = "Meeting ID";
+            }
+            else
+            {
+                MessageBox.Show("There is no class selected!");
+            }
         }
     }
 }

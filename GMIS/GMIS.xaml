@@ -23,8 +23,8 @@
             <Label Content="Student ID"></Label>
             <Label Content="Meeting ID"></Label>
         </ComboBox>
-        <Grid x:Name="ShowAllClass" Margin="-932,-84,936,54">
-            <StackPanel x:Name="ClassDetailsPanel" HorizontalAlignment="Left" Height="171" Margin="463,120,0,0" VerticalAlignment="Top" Width="312">
+        <Grid x:Name="ShowAllClass" Margin="10,22,-6,-52">
+            <StackPanel x:Name="ClassDetailsPanel" HorizontalAlignment="Left" Height="200" Margin="463,120,0,0" VerticalAlignment="Top" Width="312">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Class ID: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
                     <Label Content="{Binding Path=class_id}"/>
@@ -49,8 +49,91 @@
                     <Label Content="Room: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
                     <Label Content="{Binding Path=room}"/>
                 </StackPanel>
+                <Button x:Name="RelatedGroupButton" Content="Show All Groups Related" Height="26" Width="161" Click="RelatedGroupButton_Click"/>
             </StackPanel>
         </Grid>
-
+        <Grid x:Name="ShowAllGroup" Margin="10,0,-6,-30">
+            <StackPanel x:Name="GroupDetailsPanel" HorizontalAlignment="Left" Height="171" Margin="463,120,0,0" VerticalAlignment="Top" Width="312">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Group ID: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=group_id}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Group Name: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=group_name}"/>
+                </StackPanel>
+                <Button x:Name="RelatedStudentButton" Content="Show All Students Related" Height="26" Width="161" Click="RelatedStudentButton_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ShowAllStudent" Margin="0,12,4,-42">
+            <StackPanel x:Name="StudentDetailsPanel" HorizontalAlignment="Left" Height="315" Margin="463,120,0,0" VerticalAlignment="Top" Width="312">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Student ID: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=student_id}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Given Name: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=given_name}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Family Name: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=family_name}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Group ID: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=group_id}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Title: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=title}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Campus: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=campus}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Phone: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=phone}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Email: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=email}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Category: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=category}"/>
+                </StackPanel>
+                <Button x:Name="RelatedClassButton" Content="Show All Classes Related" Height="26" Width="161" Click="RelatedClassButton_Click"/>
+                <Button x:Name="RelatedMeetingButton" Content="Show All Meetings Related" Height="26" Width="161" Click="RelatedMeetingButton_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ShowAllMeeting" Margin="-1878,-242,1882,212">
+            <StackPanel x:Name="MeetingDetailsPanel" HorizontalAlignment="Left" Height="171" Margin="463,120,0,0" VerticalAlignment="Top" Width="312">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Meeting ID: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=meeting_id}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Group ID: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=group_id}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Day: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=day}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Start: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=start}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="End: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=end}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Room: " HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="{Binding Path=room}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
