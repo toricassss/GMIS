@@ -1,0 +1,36 @@
+﻿<Application x:Class="GMIS.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:GMIS"
+             StartupUri="GMIS.xaml">
+    <Application.Resources>
+        <local:Classes x:Key="class_controller"/>
+
+        <!-- The ObjectDataProvider Key will be refered in the controls -->
+        <ObjectDataProvider x:Key="class_list"
+                            ObjectInstance="{StaticResource class_controller}"
+                            MethodName="GetViewableList">
+        </ObjectDataProvider>
+        <local:Groups x:Key="group_controller"/>
+
+        <!-- The ObjectDataProvider Key will be refered in the controls -->
+        <ObjectDataProvider x:Key="group_list"
+                            ObjectInstance="{StaticResource group_controller}"
+                            MethodName="GetViewableList">
+        </ObjectDataProvider>
+        <local:Students x:Key="student_controller"/>
+
+        <!-- The ObjectDataProvider Key will be refered in the controls -->
+        <ObjectDataProvider x:Key="student_list"
+                            ObjectInstance="{StaticResource student_controller}"
+                            MethodName="GetViewableList">
+        </ObjectDataProvider>
+        <local:Meetings x:Key="meeting_controller"/>
+
+        <!-- The ObjectDataProvider Key will be refered in the controls -->
+        <ObjectDataProvider x:Key="meeting_list"
+                            ObjectInstance="{StaticResource meeting_controller}"
+                            MethodName="GetViewableList">
+        </ObjectDataProvider>
+    </Application.Resources>
+</Application>
