@@ -40,6 +40,18 @@ namespace GMIS
             GroupButton.Visibility = Visibility.Collapsed;
             StudentButton.Visibility = Visibility.Collapsed;
             MeetingButton.Visibility = Visibility.Collapsed;
+            ClassAttributeBox.Visibility = Visibility.Collapsed;
+            ClassFilterButton.Visibility = Visibility.Collapsed;
+            ClassTextBox.Visibility = Visibility.Collapsed;
+            GroupAttributeBox.Visibility = Visibility.Collapsed;
+            GroupFilterButton.Visibility = Visibility.Collapsed;
+            GroupTextBox.Visibility = Visibility.Collapsed;
+            StudentAttributeBox.Visibility = Visibility.Collapsed;
+            StudentFilterButton.Visibility = Visibility.Collapsed;
+            StudentTextBox.Visibility = Visibility.Collapsed;
+            MeetingAttributeBox.Visibility = Visibility.Collapsed;
+            MeetingFilterButton.Visibility = Visibility.Collapsed;
+            MeetingTextBox.Visibility = Visibility.Collapsed;
         }
 
         private void ClassButton_Click(object sender, RoutedEventArgs e)
@@ -50,6 +62,9 @@ namespace GMIS
                 ListBox.Items.Add(classes.GetViewableList()[i]);
             }
             ShowAllClass.Visibility = Visibility.Visible;
+            ClassAttributeBox.Visibility= Visibility.Visible;
+            ClassFilterButton.Visibility= Visibility.Visible;
+            ClassTextBox.Visibility = Visibility.Visible;
             ShowAllGroup.Visibility = Visibility.Collapsed;
             ShowAllMeeting.Visibility = Visibility.Collapsed;
             ShowAllStudent.Visibility = Visibility.Collapsed;
@@ -93,6 +108,9 @@ namespace GMIS
             {
                 ListBox.Items.Add(students.GetViewableList()[i]);
                 ShowAllStudent.Visibility = Visibility.Visible;
+                StudentAttributeBox.Visibility = Visibility.Visible;
+                StudentFilterButton.Visibility = Visibility.Visible;
+                StudentTextBox.Visibility = Visibility.Visible;
                 ShowAllClass.Visibility = Visibility.Collapsed;
                 ShowAllGroup.Visibility = Visibility.Collapsed;
                 ShowAllMeeting.Visibility = Visibility.Collapsed;
@@ -108,6 +126,9 @@ namespace GMIS
                 ListBox.Items.Add(groups.GetViewableList()[i]);
             }
             ShowAllGroup.Visibility = Visibility.Visible;
+            GroupAttributeBox.Visibility = Visibility.Visible;
+            GroupFilterButton.Visibility = Visibility.Visible;
+            GroupTextBox.Visibility = Visibility.Visible;
             ShowAllClass.Visibility = Visibility.Collapsed;
             ShowAllStudent.Visibility = Visibility.Collapsed;
             ShowAllMeeting.Visibility = Visibility.Collapsed;
@@ -122,6 +143,9 @@ namespace GMIS
                 ListBox.Items.Add(meetings.GetViewableList()[i]);
             }
             ShowAllMeeting.Visibility = Visibility.Visible;
+            MeetingAttributeBox.Visibility = Visibility.Visible;
+            MeetingFilterButton.Visibility = Visibility.Visible;
+            MeetingTextBox.Visibility = Visibility.Visible;
             ShowAllClass.Visibility = Visibility.Collapsed;
             ShowAllStudent.Visibility = Visibility.Collapsed;
             ShowAllGroup.Visibility = Visibility.Collapsed;
@@ -129,7 +153,7 @@ namespace GMIS
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             ObservableCollection<Class> class_list = classes.GetViewableList();
             ObservableCollection<Student> student_list = students.GetViewableList();
             ObservableCollection<Group> group_list = groups.GetViewableList();
@@ -154,7 +178,7 @@ namespace GMIS
                 }
                 else
                 {
-                    MessageBox.Show("Please check attribute and key word!");
+                    MessageBox.Show("Please check key word!");
                 }
             }
             else if (MainAttributeBox.Text == "Group ID")
@@ -227,6 +251,7 @@ namespace GMIS
             {
                 MessageBox.Show("Please select required attribute and enter key word");
             }
+            SearchTextBox.Text = String.Empty;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -355,6 +380,122 @@ namespace GMIS
             {
                 MessageBox.Show("There is no class selected!");
             }
+        }
+
+        private void ClassFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Class> class_list = classes.GetViewableList();
+            ListBox.Items.Clear();
+            if (MainAttributeBox.Text == "Class ID" && ClassAttributeBox.Text == "Day")
+            {
+                String day = String.Concat(ClassTextBox.Text.Where(c => !Char.IsWhiteSpace(c)));
+                if (day.Count() != 0)
+                {
+                    for (int i = 0; i < class_list.Count; i++)
+                    {
+                        if (class_list[i].day.ToLower() == day.ToLower())
+                        {
+                            ListBox.Items.Add(class_list[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select required attribute and enter key word");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select required attribute and enter key word");
+            }
+            ClassTextBox.Text = String.Empty;
+        }
+
+        private void GroupFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Group> group_list = groups.GetViewableList();
+            ListBox.Items.Clear();
+            if (MainAttributeBox.Text == "Group ID" && GroupAttributeBox.Text == "Group Name")
+            {
+                String group_name = String.Concat(GroupTextBox.Text.Where(c => !Char.IsWhiteSpace(c)));
+                if (group_name.Count() != 0)
+                {
+                    for (int i = 0; i < group_list.Count; i++)
+                    {
+                        if (group_list[i].group_name.ToLower() == group_name.ToLower())
+                        {
+                            ListBox.Items.Add(group_list[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select required attribute and enter key word");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select required attribute and enter key word");
+            }
+            GroupTextBox.Text = String.Empty;
+        }
+
+        private void MeetingFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Meeting> meeting_list = meetings.GetViewableList();
+            ListBox.Items.Clear();
+            if (MainAttributeBox.Text == "Meeting ID" && MeetingAttributeBox.Text == "Day")
+            {
+                String day = String.Concat(MeetingTextBox.Text.Where(c => !Char.IsWhiteSpace(c)));
+                if (day.Count() != 0)
+                {
+                    for (int i = 0; i < meeting_list.Count; i++)
+                    {
+                        if (meeting_list[i].day.ToLower() == day.ToLower())
+                        {
+                            ListBox.Items.Add(meeting_list[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select required attribute and enter key word");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select required attribute and enter key word");
+            }
+            MeetingTextBox.Text = String.Empty;
+        }
+
+        private void StudentFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Student> student_list = students.GetViewableList();
+            ListBox.Items.Clear();
+            if (MainAttributeBox.Text == "Student ID" && StudentAttributeBox.Text == "Name")
+            {
+                String name = String.Concat(StudentTextBox.Text.Where(c => !Char.IsWhiteSpace(c)));
+                if (name.Count() != 0)
+                {
+                    for (int i = 0; i < student_list.Count; i++)
+                    {
+                        if (name.ToLower().Contains(student_list[i].family_name.ToLower()) && name.Contains(student_list[i].given_name.ToLower()))
+                        {
+                            ListBox.Items.Add(student_list[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select required attribute and enter key word");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select required attribute and enter key word");
+            }
+            StudentTextBox.Text = String.Empty;
         }
     }
 }
